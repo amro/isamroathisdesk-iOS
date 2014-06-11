@@ -10,7 +10,7 @@
 
 @interface OBViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (strong, nonatomic) IBOutlet UITextView *httpStatus;
+@property (weak, nonatomic) IBOutlet UITextView *beaconStatusTextView;
+@property (strong, nonatomic) IBOutlet UITextView *httpStatusTextView;
 
 @end

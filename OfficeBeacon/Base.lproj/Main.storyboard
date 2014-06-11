@@ -46,8 +46,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="httpStatus" destination="S2t-tM-s1Q" id="xat-gb-fUI"/>
-                        <outlet property="textView" destination="Ddd-Nh-Pp7" id="GHF-qf-2Jm"/>
+                        <outlet property="beaconStatusTextView" destination="Ddd-Nh-Pp7" id="q1G-sK-ZeO"/>
+                        <outlet property="httpStatusTextView" destination="S2t-tM-s1Q" id="feU-aF-i2N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

@@ -44,8 +44,8 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    self.textView.text = [NSString stringWithFormat:@"Entered region \"%@\"", region.identifier];
-    NSLog(@"%@", self.textView.text);
+    self.beaconStatusTextView.text = [NSString stringWithFormat:@"Entered region \"%@\"", region.identifier];
+    NSLog(@"%@", self.beaconStatusTextView.text);
 
     if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
         [self.locationManager startRangingBeaconsInRegion:self.region];
@@ -57,8 +57,8 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-    self.textView.text = [NSString stringWithFormat:@"Left region \"%@\"", region.identifier];
-    NSLog(@"%@", self.textView.text);
+    self.beaconStatusTextView.text = [NSString stringWithFormat:@"Left region \"%@\"", region.identifier];
+    NSLog(@"%@", self.beaconStatusTextView.text);
 
     [self.locationManager stopRangingBeaconsInRegion:self.region];
     
@@ -92,8 +92,8 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
                     break;
             }
 
-            self.textView.text = [NSString stringWithFormat:@"In region \"%@\" (%@)", region.identifier, proximity];
-            NSLog(@"%@", self.textView.text);
+            self.beaconStatusTextView.text = [NSString stringWithFormat:@"In region \"%@\" (%@)", region.identifier, proximity];
+            NSLog(@"%@", self.beaconStatusTextView.text);
             
             BOOL shouldUpdateStatus = (self.lastStatusUpdate == nil) || (available != self.lastStatus) || ([self.lastStatusUpdate timeIntervalSinceNow] > 30);
             
@@ -127,15 +127,15 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    self.textView.text = [NSString stringWithFormat:@"Started monitoring region \"%@\"", region.identifier];
-    NSLog(@"%@", self.textView.text);
+    self.beaconStatusTextView.text = [NSString stringWithFormat:@"Started monitoring region \"%@\"", region.identifier];
+    NSLog(@"%@", self.beaconStatusTextView.text);
     
     [self.locationManager requestStateForRegion:self.region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region  withError:(NSError *)error {
-    self.textView.text = [NSString stringWithFormat:@"Failed to monitor region \"%@\" with error: %@", region.identifier, error];
-    NSLog(@"%@", self.textView.text);
+    self.beaconStatusTextView.text = [NSString stringWithFormat:@"Failed to monitor region \"%@\" with error: %@", region.identifier, error];
+    NSLog(@"%@", self.beaconStatusTextView.text);
     
     for (CLRegion *region in self.locationManager.monitoredRegions) {
         [self.locationManager stopMonitoringForRegion:region];
@@ -147,8 +147,8 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
-    self.textView.text = [NSString stringWithFormat:@"Ranging beacons failed for region \"%@\" with error: %@", region.identifier, error];
-    NSLog(@"%@", self.textView.text);
+    self.beaconStatusTextView.text = [NSString stringWithFormat:@"Ranging beacons failed for region \"%@\" with error: %@", region.identifier, error];
+    NSLog(@"%@", self.beaconStatusTextView.text);
 }
 
 #pragma mark - Helpers
@@ -165,7 +165,7 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
         
         NSLog(@"Response: %@, Error: %@", response, error);
         
-        strongSelf.httpStatus.text = [NSString stringWithFormat:@"Updated status on server: %@, error: %@", response, error];
+        strongSelf.httpStatusTextView.text = [NSString stringWithFormat:@"Updated status on server: %@, error: %@", response, error];
         
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
         localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:3];
