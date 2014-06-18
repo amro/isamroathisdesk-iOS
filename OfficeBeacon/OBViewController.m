@@ -104,33 +104,11 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-    NSLog(@"Did determine state called - %@", @(state));
-
-    if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
-        [self.locationManager startRangingBeaconsInRegion:self.region];
-    }
-
-//This doesn't seem to work reliably
-    
-//    switch (state) {
-//        case CLRegionStateInside:
-//            if ([region isMemberOfClass:[CLBeaconRegion class]] && [CLLocationManager isRangingAvailable]) {
-//                [self.locationManager startRangingBeaconsInRegion:self.region];
-//            }
-//            break;
-//        case CLRegionStateOutside:
-//        case CLRegionStateUnknown:
-//        default:
-//            break;
-//    }
-}
-
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
     self.beaconStatusTextView.text = [NSString stringWithFormat:@"Started monitoring region \"%@\"", region.identifier];
     NSLog(@"%@", self.beaconStatusTextView.text);
     
-    [self.locationManager requestStateForRegion:self.region];
+    [self.locationManager startRangingBeaconsInRegion:self.region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region  withError:(NSError *)error {
