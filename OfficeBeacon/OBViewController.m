@@ -31,11 +31,6 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
 
     NSLog(@"Starting up...");
     
-    for (CLRegion *region in self.locationManager.monitoredRegions) {
-        NSLog(@"Unmonitoring region: %@", region);
-        [self.locationManager stopMonitoringForRegion:region];
-    }
-
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:kOfficeUDID];
     self.region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"com.office.amro"];
     [self.locationManager startMonitoringForRegion:self.region];
