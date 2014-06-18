@@ -55,7 +55,8 @@ typedef void (^URLResponseCallback)(NSDictionary *response, NSError *error);
     self.beaconStatusTextView.text = [NSString stringWithFormat:@"Left region \"%@\"", region.identifier];
     NSLog(@"%@", self.beaconStatusTextView.text);
 
-    [self.locationManager stopRangingBeaconsInRegion:self.region];
+    [self.locationManager stopMonitoringForRegion:self.region];
+    [self.locationManager startMonitoringForRegion:self.region];
     
     if ([region isEqual:self.region]) {
         [self updateStatus:NO];
